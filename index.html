@@ -1,0 +1,170 @@
+`html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Win VPN Premium</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bg-color: var(--tg-theme-bg-color, #ffffff);
+            --text-color: var(--tg-theme-text-color, #000000);
+            --hint-color: var(--tg-theme-hint-color, #999999);
+            --secondary-bg: var(--tg-theme-secondary-bg-color, #f1f1f2);
+            --accent: #f97316;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Плавный вход контента */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .card {
+            background-color: var(--secondary-bg);
+            border: 1px solid rgba(0,0,0,0.03);
+            border-radius: 28px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Анимация выбора */
+        .card:active {
+            transform: scale(0.95);
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        .card.selected {
+            transform: scale(1.02);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.2);
+            background: linear-gradient(145deg, var(--secondary-bg), rgba(249, 115, 22, 0.05));
+        }
+
+        /* Сияющая рамка для ТОП тарифа */
+        .glow-border {
+            position: relative;
+        }
+        .glow-border::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 30px;
+            background: linear-gradient(45deg, #f97316, #fbbf24, #f97316);
+            z-index: -1;
+            opacity: 0.3;
+            filter: blur(8px);
+            animation: rotateGlow 3s linear infinite;
+        }
+
+        @keyframes rotateGlow {
+            0% { filter: blur(8px); opacity: 0.3; }
+            50% { filter: blur(12px); opacity: 0.5; }
+            100% { filter: blur(8px); opacity: 0.3; }
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+    </style>
+</head>
+<body class="p-5">
+
+    <div class="text-center mt-4 mb-10 fade-in">
+        <div class="relative inline-block">
+            <div class="absolute inset-0 bg-orange-500 blur-2xl opacity-20 rounded-full"></div>
+            <div class="relative w-20 h-20 bg-gradient-to-tr from-orange-500 to-yellow-400 rounded-3xl flex items-center justify-center shadow-lg mb-4 mx-auto">
+                <span class="text-4xl">🔥</span>
+            </div>
+        </div>
+        <h1 class="text-3xl font-black tracking-tight italic uppercase">Win VPN</h1>
+        <p class="text-[var(--hint-color)] text-xs font-bold tracking-[0.2em] mt-1">Maximum Speed • Ultra Private</p>
+    </div>
+
+    <div class="space-y-4">
+        
+        <div id="p1" onclick="handleSelect('1_month', 100, 40, 'p1')" class="card p-6 flex justify-between items-center fade-in delay-1">
+            <div>
+                <h3 class="text-lg font-extrabold italic">1 МЕСЯЦ</h3>
+                <p class="text-xs opacity-50">Быстрый старт</p>
+            </div>
+            <div class="text-right">
+                <div class="text-2xl font-black">100 ₽</div>
+                <div class="text-[9px] font-bold text-orange-500 uppercase">40 stars ⭐️</div>
+            </div>
+        </div><div id="p2" onclick="handleSelect('3_months', 250, 100, 'p2')" class="card p-6 flex justify-between items-center glow-border border-orange-400/50 border-2 fade-in delay-2">
+            <div>
+                <h3 class="text-lg font-extrabold italic text-orange-500">3 МЕСЯЦА</h3>
+                <p class="text-xs opacity-50">Выбор большинства</p>
+            </div>
+            <div class="text-right">
+                <div class="text-2xl font-black text-orange-500">250 ₽</div>
+                <div class="text-[9px] font-bold opacity-60 uppercase">100 stars ⭐️</div>
+            </div>
+        </div>
+
+        <div id="p3" onclick="handleSelect('1_year', 500, 200, 'p3')" class="card p-6 flex justify-between items-center fade-in delay-3">
+            <div>
+                <h3 class="text-lg font-extrabold italic">1 ГОД</h3>
+                <p class="text-xs text-green-500 font-bold uppercase tracking-widest">Лучшая цена</p>
+            </div>
+            <div class="text-right">
+                <div class="text-2xl font-black">500 ₽</div>
+                <div class="text-[9px] font-bold text-orange-500 uppercase">200 stars ⭐️</div>
+            </div>
+        </div>
+     </div>
+
+    <div class="mt-12 text-center fade-in delay-3">
+        <p class="text-[9px] text-[var(--hint-color)] uppercase tracking-widest leading-loose">
+            Безопасная оплата через Telegram Stars <br>
+            Ключ будет выдан моментально
+        </p>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+        tg.setHeaderColor('secondary_bg_color');
+
+        function handleSelect(id, rub, stars, elId) {
+            // Визуальный эффект выбора
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(c => c.classList.remove('selected', 'glow-border'));
+            
+            const selected = document.getElementById(elId);
+            selected.classList.add('selected');
+
+            // Haptic Feedback (Вибрация)
+            tg.HapticFeedback.notificationOccurred('success');
+
+            // Отправка данных боту с небольшой задержкой для красоты
+            setTimeout(() => {
+                tg.sendData(JSON.stringify({
+                    plan: id,
+                    price_rub: rub,
+                    price_stars: stars
+                }));
+                tg.close();
+            }, 500);
+        }
+    </script>
+</body>
+</html>
+
+
+`
